@@ -1,0 +1,59 @@
+<!-- Navbar -->
+<mat-toolbar class="navbar">
+  <div id="application-menu">
+    <mat-icon svgIcon="logo" class="logo"></mat-icon>
+    <button mat-icon-button aria-label="Menu Icon" class="menu-icon">
+      <mat-icon svgIcon="menu-xpto"></mat-icon>
+    </button>
+  </div>
+  <div id="user-menu">
+    <div id="user-initials">
+      <span>JD</span>
+    </div>
+    <p id="user-name">John Doe</p>
+  </div>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidenav -->
+  <mat-sidenav opened="true" mode="side">
+    <mat-nav-list>
+      <a mat-list-item disableRipple>
+        <button mat-icon-button>
+          <mat-icon svgIcon="option-one"></mat-icon>
+        </button>
+      </a>
+      <a mat-list-item disableRipple>
+        <button mat-icon-button>
+          <mat-icon svgIcon="option-two"></mat-icon>
+        </button>
+      </a>
+      <a mat-list-item disableRipple>
+        <button mat-icon-button>
+          <mat-icon svgIcon="option-three"></mat-icon>
+        </button>
+      </a>
+      <a mat-list-item [routerLink]="['/reports']" routerLinkActive="active" disableRipple>
+        <button mat-icon-button>
+          <mat-icon svgIcon="reports"></mat-icon>
+        </button>
+      </a>
+      <a mat-list-item disableRipple>
+        <button mat-icon-button>
+          <mat-icon svgIcon="option-five"></mat-icon>
+        </button>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content class="content">
+    <router-outlet></router-outlet>
+    <!-- <app-loader></app-loader> -->
+    <footer>
+      <a href="" aria-label="Terms&Conditions">Terms&Conditions</a>
+      <span> | </span>
+      <a href="" aria-label="Privacy policy">Privacy policy</a>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

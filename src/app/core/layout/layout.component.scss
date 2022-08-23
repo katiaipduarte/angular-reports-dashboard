@@ -1,0 +1,104 @@
+.navbar {
+  height: 80px;
+  border-bottom: 2px solid #f3f6f9;
+  background-color: white;
+  padding: 21px 100px 16px 35px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  #application-menu {
+    display: flex;
+    align-items: center;
+
+    .logo {
+      width: 27px;
+      height: 40px;
+      margin: 0 38px 0 0;
+    }
+
+    .menu-icon {
+      cursor: pointer;
+      background: transparent;
+      border: transparent;
+      width: 31px;
+      height: 27px;
+    }
+  }
+
+  #user-menu {
+    display: flex;
+    align-items: end;
+
+    #user-initials {
+      width: 32px;
+      height: 32px;
+      background: #f6ca65;
+      border-radius: 5px;
+      margin-right: 11px;
+      padding: 8px;
+
+      span {
+        font-weight: 700;
+        font-size: 23px;
+        line-height: 27px;
+        text-align: center;
+        color: white;
+      }
+    }
+
+    #user-name {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 19px;
+      color: #005b96;
+    }
+  }
+}
+
+.sidenav-container {
+  height: calc(100vh - 80px);
+
+  mat-sidenav {
+    width: 90px;
+    border-right: transparent;
+
+    mat-nav-list {
+      padding: 41px 12px 0;
+
+      a {
+        width: 24px;
+        height: 24px;
+        margin-bottom: 24px;
+        &:hover {
+          background: transparent;
+          mat-icon {
+            fill: #2daee5;
+          }
+        }
+        button {
+          cursor: pointer;
+          background: transparent;
+          border: transparent;
+        }
+      }
+    }
+  }
+
+  .content {
+    background-color: white;
+    padding: 35px 100px 0 0;
+
+    footer {
+      padding: 27px 0 22px 0;
+      a,
+      span {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;
+        color: #005b96;
+        text-decoration: none;
+      }
+    }
+  }
+}
