@@ -1,0 +1,25 @@
+.button {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+  background: #005b96;
+  border-radius: 5px;
+  width: 118px;
+  height: 32px;
+  color: white;
+  cursor: pointer;
+  border: transparent;
+
+  span {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    cursor: pointer;
+  }
+
+  &:hover {
+    border: 1px solid #005b96;
+    color: #005b96;
+    background-color: white;
+  }
+}
