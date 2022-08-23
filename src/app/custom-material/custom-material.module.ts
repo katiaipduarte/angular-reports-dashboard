@@ -4,10 +4,19 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DomSanitizer } from '@angular/platform-browser';
 
-const modules = [A11yModule, MatProgressSpinnerModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule];
+const modules = [
+  A11yModule,
+  MatProgressSpinnerModule,
+  MatSidenavModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatListModule,
+  MatSnackBarModule,
+];
 
 @NgModule({
   imports: [...modules],

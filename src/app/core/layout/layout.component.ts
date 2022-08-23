@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '@core/models/user.interface';
 import { UntilDestroy } from '@ngneat/until-destroy';
+import { AuthService } from './../services/auth/auth.service';
 
 @UntilDestroy({ checkProperties: true })
 @Component({
@@ -8,13 +10,19 @@ import { UntilDestroy } from '@ngneat/until-destroy';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
-  public loading = false;
+  public username: string = '';
 
-  private username: string = '';
-
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   public ngOnInit(): void {
-    console.log();
+    this.getCurrentUser();
+  }
+
+  private getCurrentUser(): void {
+    this.authService.getCurrentUser().subscribe((res: User) => {
+      if (res.data.length > 0) {
+        this.username = `${res.data[0].firstName} ${res.data[0].lastName}`;
+      }
+    });
   }
 }

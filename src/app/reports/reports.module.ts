@@ -5,9 +5,7 @@ import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsLayoutComponent } from './components/reports-layout/reports-layout.component';
 
 @NgModule({
-  declarations: [
-    ReportsLayoutComponent
-  ],
+  declarations: [ReportsLayoutComponent],
   imports: [CommonModule, ReportsRoutingModule],
 })
 export class ReportsModule {}
