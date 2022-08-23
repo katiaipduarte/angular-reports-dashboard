@@ -1,0 +1,26 @@
+.empty-page {
+  width: 450px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 175px);
+  flex-direction: column;
+
+  h3 {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: #011f4b;
+    text-align: center;
+  }
+
+  p {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: #7e8299;
+    margin-bottom: 51px;
+    text-align: center;
+  }
+}
