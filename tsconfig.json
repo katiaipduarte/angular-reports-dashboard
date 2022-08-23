@@ -2,7 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -18,15 +18,27 @@
     "importHelpers": true,
     "target": "es2020",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ]
+    "lib": ["es2020", "dom"],
+    "paths": {
+      "@core/*": ["app/core/*"],
+      "@custom-material/*": ["app/custom-material/*"],
+      "@pipes": ["app/shared/pipes/index"],
+      "@button": ["app/shared/ui/button/index"],
+      "@datepicker": ["app/shared/ui/datepicker/index"],
+      "@donut-chart": ["app/shared/ui/donut-chart/index"],
+      "@dropdown": ["app/shared/ui/dropdown/index"],
+      "@empty-layout": ["app/shared/ui/empty-layout/index"],
+      "@loader": ["app/shared/ui/loader/index"],
+      "@messages": ["app/shared/ui/messages/index"],
+      "@pill-btn": ["app/shared/ui/pill/index"],
+      "@table": ["app/shared/ui/table/index"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "allowSyntheticDefaultImports": true
   }
 }
