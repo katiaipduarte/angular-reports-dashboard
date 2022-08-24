@@ -4,7 +4,7 @@
     <h2>Easily generate a report of your transactions</h2>
   </div>
 
-  <div class="filters" *ngIf="!loading">
+  <div class="filters">
     <app-dropdown [options]="projectDropdown" (itemSelected)="updateProjectId($event)"></app-dropdown>
     <app-dropdown [options]="gatewayDropdown" (itemSelected)="updateGatewayId($event)"></app-dropdown>
     <app-datepicker (dateValueChange)="updateDateRange($event)"></app-datepicker>
