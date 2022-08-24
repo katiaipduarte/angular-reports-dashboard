@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '@core/models/user.interface';
 import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { UserItem } from './../../models/user-item.interface';
+import { Users } from './../../models/users.interface';
 import { GlobalErrorHandlerService } from './../global-error-handler/global-error-handler.service';
 
 @Injectable({
@@ -11,7 +12,10 @@ import { GlobalErrorHandlerService } from './../global-error-handler/global-erro
 export class AuthService {
   constructor(private httpClient: HttpClient, private globalErrorHandlerService: GlobalErrorHandlerService) {}
 
-  public getCurrentUser(): Observable<User> {
-    return this.httpClient.get<User>('users').pipe(catchError((err) => this.globalErrorHandlerService.handleError(err)));
+  public getCurrentUser(): Observable<UserItem[]> {
+    return this.httpClient.get<Users>('users').pipe(
+      map((res: Users) => res.data),
+      catchError((err) => this.globalErrorHandlerService.handleError(err)),
+    );
   }
 }

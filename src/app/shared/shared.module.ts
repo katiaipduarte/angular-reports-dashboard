@@ -1,3 +1,4 @@
+import { AccordionComponent } from '@accordion';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -25,6 +26,7 @@ const modules = [
   PillComponent,
   TableComponent,
   ToastComponent,
+  AccordionComponent,
 ];
 
 const pipes = [InitialsPipe];

@@ -1,15 +1,88 @@
-.page-title {
-  h1 {
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 28px;
-    color: #011f4b;
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  .page-title {
+    cursor: default;
+    h1 {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 28px;
+      color: #011f4b;
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 19px;
+      color: #7e8299;
+    }
   }
 
-  h2 {
+  .filters {
+    display: flex;
+
+    app-dropdown {
+      margin-right: 23px;
+    }
+
+    app-button {
+      margin-top: 10px;
+    }
+  }
+}
+
+.reports {
+  background: #f1fafe;
+  border-radius: 10px;
+  padding: 18px 24px;
+
+  h3 {
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
-    color: #7e8299;
+    cursor: default;
+    color: #011f4b;
+    margin-bottom: 34px;
+  }
+
+  app-accordion {
+    margin-bottom: 5px;
+  }
+
+  .accordion-header-content {
+    background: #ffffff;
+    border-radius: 10px;
+    height: 19px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 26px 21px;
+
+    p {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 19px;
+      color: #011f4b;
+    }
+  }
+
+  .accordion-body-content {
+    padding: 14px 0;
+  }
+}
+
+.total-amount {
+  margin-top: 27px;
+  height: 53px;
+  background: #f1fafe;
+  border-radius: 10px;
+
+  p {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    cursor: default;
+    color: #011f4b;
+    padding: 17px 29px;
   }
 }

@@ -1,0 +1,24 @@
+<table mat-table [dataSource]="datasource" class="mat-elevation-z8" aria-describedby="reports-table">
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef>Date</th>
+    <td mat-cell *matCellDef="let element">{{element.modified}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="gatewayName">
+    <th mat-header-cell *matHeaderCellDef>Gateway</th>
+    <td mat-cell *matCellDef="let element">{{element.gatewayName}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="paymentId">
+    <th mat-header-cell *matHeaderCellDef>Transaction ID</th>
+    <td mat-cell *matCellDef="let element">{{element.paymentId}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef>Amount</th>
+    <td mat-cell *matCellDef="let element">{{element.amount}}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columns"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+</table>

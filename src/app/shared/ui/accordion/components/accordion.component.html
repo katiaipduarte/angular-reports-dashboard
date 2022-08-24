@@ -1,0 +1,26 @@
+<cdk-accordion class="accordion" [attr.data-testid]="'accordion-' + testAttr">
+  <cdk-accordion-item
+    #accordionItem="cdkAccordionItem"
+    class="accordion-item"
+    role="button"
+    tabindex="0"
+    [expanded]="expanded"
+    [attr.data-testid]="'accordion-header-' + testAttr"
+    [attr.aria-expanded]="accordionItem.expanded"
+    [attr.aria-controls]="'accordion-body-' + testAttr"
+  >
+    <div class="accordion-item-header" (click)="accordionItem.toggle()">
+      <ng-content select=".accordion-header-content"></ng-content>
+    </div>
+
+    <div
+      class="accordion-item-body"
+      role="region"
+      [style.display]="accordionItem.expanded ? '' : 'none'"
+      [attr.data-testid]="'accordion-body-' + testAttr"
+      [attr.aria-labelledby]="'accordion-header-' + testAttr"
+    >
+      <ng-content select=".accordion-body-content"></ng-content>
+    </div>
+  </cdk-accordion-item>
+</cdk-accordion>

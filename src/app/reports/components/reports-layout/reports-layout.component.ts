@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Button } from '@button';
-import { DropdownOptions } from '@dropdown';
+import { DropdownItem, DropdownOptions } from '@dropdown';
 import { EmptyMessage } from '@empty-layout';
-import { GatewayItem, ProjectItem, ReportFilters, ReportItem } from 'app/reports/models';
+import { GatewayItem, ProjectItem, ReportFilters, ReportGrouped, ReportItem } from 'app/reports/models';
 import { catchError, EMPTY, of, tap, zip } from 'rxjs';
 import { ReportsService } from './../../services/reports.service';
 
@@ -43,6 +43,10 @@ export class ReportsLayoutComponent implements OnInit {
     selectedItemId: '0',
     testAttr: 'gateway-dropdown',
   };
+  public reports: ReportGrouped[] = [];
+  public totalAmount: number = 0;
+  public selectedProjectName: string = 'All projects';
+  public selectedGatewayName: string = 'All gateways';
 
   private projects: ProjectItem[] = [];
   private gateways: GatewayItem[] = [];
@@ -60,7 +64,24 @@ export class ReportsLayoutComponent implements OnInit {
       .getReports(this.reportFilters)
       .pipe(
         tap((res: ReportItem[]) => {
-          console.log(res);
+          this.totalAmount = res.reduce((a: number, b: ReportItem) => a + b.amount, 0);
+          let reduced: ReportItem[][] = res.reduce((r, acc) => {
+            r[acc.projectId] = r[acc.projectId] || [];
+            r[acc.projectId].push({
+              ...acc,
+              gatewayName: this.gateways.find((i) => i.gatewayId === acc.gatewayId)?.name,
+            });
+
+            return r;
+          }, Object.create(null));
+
+          this.reports = Object.values(reduced).map((reports: ReportItem[]) => {
+            return {
+              projectName: this.projects.find((i) => i.projectId === reports[0].projectId)?.name ?? '',
+              data: reports,
+              total: reports.reduce((a: number, b: ReportItem) => a + b.amount, 0),
+            };
+          });
         }),
         catchError(() => {
           return of(EMPTY);
@@ -69,12 +90,14 @@ export class ReportsLayoutComponent implements OnInit {
       .subscribe();
   }
 
-  public updateProjectId(projectId: string): void {
-    this.reportFilters = { ...this.reportFilters, projectId: projectId === '0' ? '' : projectId };
+  public updateProjectId(item: DropdownItem): void {
+    this.reportFilters = { ...this.reportFilters, projectId: item.itemId === '0' ? '' : item.itemId };
+    this.selectedProjectName = item.itemText;
   }
 
-  public updateGatewayId(gatewayId: string): void {
-    this.reportFilters = { ...this.reportFilters, gatewayId: gatewayId === '0' ? '' : gatewayId };
+  public updateGatewayId(item: DropdownItem): void {
+    this.reportFilters = { ...this.reportFilters, gatewayId: item.itemId === '0' ? '' : item.itemId };
+    this.selectedGatewayName = item.itemText;
   }
 
   private getFilters(): void {

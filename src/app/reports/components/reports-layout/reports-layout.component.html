@@ -1,12 +1,36 @@
-<div class="page-title">
-  <h1>Reports</h1>
-  <h2>Easily generate a report of your transactions</h2>
+<div class="page-header">
+  <div class="page-title">
+    <h1>Reports</h1>
+    <h2>Easily generate a report of your transactions</h2>
+  </div>
+
+  <div class="filters">
+    <app-dropdown [options]="projectDropdown" (itemSelected)="updateProjectId($event)"></app-dropdown>
+    <app-dropdown [options]="gatewayDropdown" (itemSelected)="updateGatewayId($event)"></app-dropdown>
+    <app-button [btn]="generateReport" (btnClicked)="getReports()"></app-button>
+  </div>
 </div>
 
-<div class="filters">
-  <app-dropdown [options]="projectDropdown" (itemSelected)="updateProjectId($event)"></app-dropdown>
-  <app-dropdown [options]="gatewayDropdown" (itemSelected)="updateGatewayId($event)"></app-dropdown>
-  <app-button [btn]="generateReport" (btnClicked)="getReports()"></app-button>
-</div>
+<section *ngIf="reports.length > 0; else emptyReports" class="reports">
+  <h3>{{selectedProjectName}} | {{selectedGatewayName}}</h3>
 
-<app-empty-layout [message]="emptyUI"></app-empty-layout>
+  <ng-container *ngFor="let item of reports; let i = index">
+    <app-accordion [testAttr]="item.projectName" [expanded]="i === 0">
+      <div class="accordion-header-content">
+        <p>{{item.projectName}}</p>
+        <p>Total: {{item.total | currency:'':'code'}}</p>
+      </div>
+      <div class="accordion-body-content">
+        <app-table [columns]="['date', 'gatewayName', 'paymentId', 'amount']" [datasource]="item.data"></app-table>
+      </div>
+    </app-accordion>
+  </ng-container>
+</section>
+
+<section class="total-amount" *ngIf="reports.length > 0">
+  <p>Total: {{totalAmount | currency:'':'code'}}</p>
+</section>
+
+<ng-template #emptyReports>
+  <app-empty-layout [message]="emptyUI"></app-empty-layout>
+</ng-template>

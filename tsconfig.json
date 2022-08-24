@@ -23,6 +23,7 @@
       "@core/*": ["app/core/*"],
       "@custom-material/*": ["app/custom-material/*"],
       "@pipes": ["app/shared/pipes/index"],
+      "@accordion": ["app/shared/ui/accordion/index"],
       "@button": ["app/shared/ui/button/index"],
       "@datepicker": ["app/shared/ui/datepicker/index"],
       "@donut-chart": ["app/shared/ui/donut-chart/index"],

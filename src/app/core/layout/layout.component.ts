@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '@core/models/user.interface';
+import { UserItem } from '@core/models/user-item.interface';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { AuthService } from './../services/auth/auth.service';
 
@@ -19,9 +19,9 @@ export class LayoutComponent implements OnInit {
   }
 
   private getCurrentUser(): void {
-    this.authService.getCurrentUser().subscribe((res: User) => {
-      if (res.data.length > 0) {
-        this.username = `${res.data[0].firstName} ${res.data[0].lastName}`;
+    this.authService.getCurrentUser().subscribe((res: UserItem[]) => {
+      if (res.length > 0) {
+        this.username = `${res[0].firstName} ${res[0].lastName}`;
       }
     });
   }

@@ -1,4 +1,5 @@
 import { A11yModule } from '@angular/cdk/a11y';
+import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { NgModule } from '@angular/core';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -6,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -18,6 +20,8 @@ const modules = [
   MatListModule,
   MatSnackBarModule,
   MatSelectModule,
+  CdkAccordionModule,
+  MatTableModule,
 ];
 
 @NgModule({
