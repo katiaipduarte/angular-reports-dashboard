@@ -1,0 +1,9 @@
+<div class="snack-container">
+  <div class="message-box">
+    <p class="title">{{ data.title }}</p>
+    <p class="message" *ngIf="data.message !== ''">{{ data.message }}</p>
+  </div>
+  <button class="close-btn" (click)="close()" aria-label="Close">
+    <mat-icon svgIcon="close"></mat-icon>
+  </button>
+</div>
