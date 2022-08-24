@@ -47,6 +47,9 @@ export class ReportsLayoutComponent implements OnInit {
   public totalAmount: number = 0;
   public selectedProjectName: string = 'All projects';
   public selectedGatewayName: string = 'All gateways';
+  public showGateway: boolean = false;
+  public columns: string[] = [];
+  public showAccordionHeader: boolean = true;
 
   private projects: ProjectItem[] = [];
   private gateways: GatewayItem[] = [];
@@ -64,6 +67,8 @@ export class ReportsLayoutComponent implements OnInit {
       .getReports(this.reportFilters)
       .pipe(
         tap((res: ReportItem[]) => {
+          this.prepareTable();
+          this.showAccordionHeader = this.reportFilters.projectId !== '' && this.reportFilters.gatewayId !== '';
           this.totalAmount = res.reduce((a: number, b: ReportItem) => a + b.amount, 0);
           let reduced: ReportItem[][] = res.reduce((r, acc) => {
             r[acc.projectId] = r[acc.projectId] || [];
@@ -133,5 +138,15 @@ export class ReportsLayoutComponent implements OnInit {
         itemText: i.name,
       }),
     );
+  }
+
+  private prepareTable(): void {
+    if (this.reportFilters.projectId === '' && this.reportFilters.gatewayId === '') {
+      this.columns = ['date', 'gatewayName', 'paymentId', 'amount'];
+      this.showGateway = true;
+    } else {
+      this.columns = ['date', 'paymentId', 'amount'];
+      this.showGateway = false;
+    }
   }
 }

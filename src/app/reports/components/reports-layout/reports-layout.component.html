@@ -16,12 +16,12 @@
 
   <ng-container *ngFor="let item of reports; let i = index">
     <app-accordion [testAttr]="item.projectName" [expanded]="i === 0">
-      <div class="accordion-header-content">
+      <div class="accordion-header-content" *ngIf="!showAccordionHeader">
         <p>{{item.projectName}}</p>
         <p>Total: {{item.total | currency:'':'code'}}</p>
       </div>
       <div class="accordion-body-content">
-        <app-table [columns]="['date', 'gatewayName', 'paymentId', 'amount']" [datasource]="item.data"></app-table>
+        <app-table [columns]="columns" [datasource]="item.data" [showGateway]="showGateway"></app-table>
       </div>
     </app-accordion>
   </ng-container>
