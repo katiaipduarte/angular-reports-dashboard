@@ -149,7 +149,7 @@ export class ReportsLayoutComponent implements OnInit {
   private getReportsTitle(): void {
     this.selectedProjectName =
       this.reportFilters.projectId === ''
-        ? 'All programs'
+        ? 'All projects'
         : this.projects.find((i) => i.projectId === this.reportFilters.projectId)?.name ?? '';
     this.selectedGatewayName =
       this.reportFilters.gatewayId === ''

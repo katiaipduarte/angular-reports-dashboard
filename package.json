@@ -6,8 +6,6 @@
     "start": "ng serve",
     "start:docker": "npm run build:docker && docker run -p 4200:80 --rm angular-reports-dashboard",
     "build": "ng build",
-    "build:stats": "ng build --stats-json",
-    "build:docker": "docker image build -t angular-reports-dashboard .",
     "precommit": "ng lint && ng test --watch=false --browsers ChromeHeadless && ng build",
     "test": "ng test --watch=true",
     "test:ci": "ng test --watch=false --code-coverage --browsers ChromeHeadless",

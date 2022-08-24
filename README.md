@@ -1,27 +1,44 @@
-# AngularReportsDashboard
+## Table of contents
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+- [General info](#general-info)
+- [Technologies](#technologies)
+- [Setup](#setup)
+- [Furet Work](#future-work)
 
-## Development server
+## General info
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This project is simple example of dashboard report with dropdown filters and date range.
+Demo: https://angular-reports-dashboard.vercel.app/reports --> warning, since the API used in this case is not https, the only visible page is the no reports
 
-## Code scaffolding
+## Technologies
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Project is created with:
 
-## Build
+- Angular: 14.1.3
+- Angular Material: 14.1.3
+- Storybook: 6.5.10
+- Karma (Unit Testing): 6.4.0
+- Eslint
+- Prettier
+- Husky
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Setup
 
-## Running unit tests
+To run this project, install it locally using npm:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+$ git clone https://github.com/katiaipduarte/angular-reports-dashboard.git
+$ cd angular-reports-dashboard
+$ npm install
+$ npm run prepare
+$ npm run start
+```
 
-## Running end-to-end tests
+## Future Work
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+[ ] Complete the unit tests cases
+[ ] Add mocked services for unit test
+[ ] Add e2e tests with Cypress
+[ ] Complete storybook with all cases from the shared UI components
+[ ] Make app completly responsive and accessible
+[ ] Add docker build
