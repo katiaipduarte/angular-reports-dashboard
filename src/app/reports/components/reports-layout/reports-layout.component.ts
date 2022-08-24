@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Button } from '@button';
+import { DateRange } from '@datepicker';
 import { DonutChartData } from '@donut-chart';
-import { DropdownItem, DropdownOptions } from '@dropdown';
+import { DropdownOptions } from '@dropdown';
 import { EmptyMessage } from '@empty-layout';
 import { GatewayItem, ProjectItem, ReportFilters, ReportGrouped, ReportItem } from 'app/reports/models';
-import { catchError, EMPTY, of, tap, zip } from 'rxjs';
+import { zip } from 'rxjs';
 import { ReportsService } from './../../services/reports.service';
 
 @Component({
@@ -56,6 +57,8 @@ export class ReportsLayoutComponent implements OnInit {
   public totalTitle: string = '';
   public showChart: boolean = false;
 
+  public loading: boolean = true;
+
   private projects: ProjectItem[] = [];
   private gateways: GatewayItem[] = [];
   private reportFilters: ReportFilters = { from: '2021-01-01', to: '2021-12-31', projectId: '', gatewayId: '' };
@@ -68,52 +71,61 @@ export class ReportsLayoutComponent implements OnInit {
   }
 
   public getReports(): void {
-    this.reportsService
-      .getReports(this.reportFilters)
-      .pipe(
-        tap((res: ReportItem[]) => {
-          this.prepareTableHeader();
-          this.showAccordionHeader = this.reportFilters.projectId !== '' && this.reportFilters.gatewayId !== '';
-          this.totalAmount = res.reduce((a: number, b: ReportItem) => a + b.amount, 0);
+    this.loading = true;
+    this.reportsService.getReports(this.reportFilters).subscribe({
+      next: (res: ReportItem[]) => {
+        this.getReportsTitle();
+        this.prepareTableHeader();
+        this.showAccordionHeader = this.reportFilters.projectId !== '' && this.reportFilters.gatewayId !== '';
+        this.totalAmount = res.reduce((a: number, b: ReportItem) => a + b.amount, 0);
+        this.showChart = false;
 
-          if (this.reportFilters.projectId !== '' && this.reportFilters.gatewayId === '') {
-            this.prepareTableDataPerGateway(res);
-          } else {
-            this.prepareTableDataPerProject(res);
+        if (this.reportFilters.projectId !== '' && this.reportFilters.gatewayId === '') {
+          this.prepareTableDataPerGateway(res);
+        } else {
+          this.prepareTableDataPerProject(res);
+
+          if (this.reportFilters.projectId === '' && this.reportFilters.gatewayId !== '') {
+            this.prepareChartData();
+            this.totalTitle = 'gateway total';
           }
-        }),
-        catchError(() => {
-          return of(EMPTY);
-        }),
-      )
-      .subscribe();
+        }
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      },
+      complete: () => {
+        this.loading = false;
+      },
+    });
   }
 
-  public updateProjectId(item: DropdownItem): void {
-    this.reportFilters = { ...this.reportFilters, projectId: item.itemId === '0' ? '' : item.itemId };
-    this.selectedProjectName = item.itemText;
+  public updateProjectId(itemId: string): void {
+    this.reportFilters = { ...this.reportFilters, projectId: itemId === '0' ? '' : itemId };
   }
 
-  public updateGatewayId(item: DropdownItem): void {
-    this.reportFilters = { ...this.reportFilters, gatewayId: item.itemId === '0' ? '' : item.itemId };
-    this.selectedGatewayName = item.itemText;
+  public updateGatewayId(itemId: string): void {
+    this.reportFilters = { ...this.reportFilters, gatewayId: itemId === '0' ? '' : itemId };
+  }
+
+  public updateDateRange(range: DateRange): void {
+    this.reportFilters = { ...this.reportFilters, from: range.from, to: range.to };
   }
 
   private getFilters(): void {
-    zip(this.reportsService.getProjects(), this.reportsService.getGateways())
-      .pipe(
-        tap((res: [ProjectItem[], GatewayItem[]]) => {
-          this.projects = res[0];
-          this.gateways = res[1];
+    zip(this.reportsService.getProjects(), this.reportsService.getGateways()).subscribe({
+      next: (res: [ProjectItem[], GatewayItem[]]) => {
+        this.projects = res[0];
+        this.gateways = res[1];
 
-          this.prepareProjectFilter();
-          this.prepareGatewayFilter();
-        }),
-        catchError(() => {
-          return of(EMPTY);
-        }),
-      )
-      .subscribe();
+        this.prepareProjectFilter();
+        this.prepareGatewayFilter();
+      },
+      error: () => {
+        this.loading = false;
+      },
+    });
   }
 
   private prepareProjectFilter(): void {
@@ -132,6 +144,17 @@ export class ReportsLayoutComponent implements OnInit {
         itemText: i.name,
       }),
     );
+  }
+
+  private getReportsTitle(): void {
+    this.selectedProjectName =
+      this.reportFilters.projectId === ''
+        ? 'All programs'
+        : this.projects.find((i) => i.projectId === this.reportFilters.projectId)?.name ?? '';
+    this.selectedGatewayName =
+      this.reportFilters.gatewayId === ''
+        ? 'All gateways'
+        : this.gateways.find((i) => i.gatewayId === this.reportFilters.gatewayId)?.name ?? '';
   }
 
   private prepareTableHeader(): void {
@@ -155,13 +178,15 @@ export class ReportsLayoutComponent implements OnInit {
       return r;
     }, Object.create(null));
 
-    this.reports = Object.values(reduced).map((reports: ReportItem[]) => {
-      return {
-        reportName: this.projects.find((i) => i.projectId === reports[0].projectId)?.name ?? '',
-        data: reports,
-        total: reports.reduce((a: number, b: ReportItem) => a + b.amount, 0),
-      };
-    });
+    this.reports = Object.values(reduced)
+      .map((reports: ReportItem[]) => {
+        return {
+          reportName: this.projects.find((i) => i.projectId === reports[0].projectId)?.name ?? '',
+          data: reports,
+          total: reports.reduce((a: number, b: ReportItem) => a + b.amount, 0),
+        };
+      })
+      .sort((a, b) => (a.reportName < b.reportName ? -1 : 1));
   }
 
   private prepareTableDataPerGateway(result: ReportItem[]): void {
@@ -174,20 +199,22 @@ export class ReportsLayoutComponent implements OnInit {
       return r;
     }, Object.create(null));
 
-    this.reports = Object.values(reduced).map((reports: ReportItem[]) => {
-      return {
-        reportName: this.gateways.find((i) => i.gatewayId === reports[0].gatewayId)?.name ?? '',
-        data: reports,
-        total: reports.reduce((a: number, b: ReportItem) => a + b.amount, 0),
-      };
-    });
+    this.reports = Object.values(reduced)
+      .map((reports: ReportItem[]) => {
+        return {
+          reportName: this.gateways.find((i) => i.gatewayId === reports[0].gatewayId)?.name ?? '',
+          data: reports,
+          total: reports.reduce((a: number, b: ReportItem) => a + b.amount, 0),
+        };
+      })
+      .sort((a, b) => (a.reportName < b.reportName ? -1 : 1));
 
     this.prepareChartData();
     this.totalTitle = 'Project total';
-    this.showChart = true;
   }
 
   private prepareChartData(): void {
+    this.showChart = true;
     this.chart = {
       series: this.reports.map((i: ReportGrouped) => {
         return {

@@ -1,7 +1,11 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { NgModule } from '@angular/core';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
@@ -12,6 +16,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { DomSanitizer } from '@angular/platform-browser';
 
 const modules = [
+  MatInputModule,
   A11yModule,
   MatProgressSpinnerModule,
   MatSidenavModule,
@@ -22,6 +27,9 @@ const modules = [
   MatSelectModule,
   CdkAccordionModule,
   MatTableModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatFormFieldModule,
 ];
 
 @NgModule({

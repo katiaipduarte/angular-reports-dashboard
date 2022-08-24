@@ -2,6 +2,7 @@ import { AccordionComponent } from '@accordion';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '@button';
 import { CustomMaterialModule } from '@custom-material/custom-material.module';
@@ -36,6 +37,7 @@ const pipes = [InitialsPipe];
     CommonModule,
     RouterModule,
     CustomMaterialModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),

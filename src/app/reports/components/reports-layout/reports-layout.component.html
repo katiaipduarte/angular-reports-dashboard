@@ -4,37 +4,40 @@
     <h2>Easily generate a report of your transactions</h2>
   </div>
 
-  <div class="filters">
+  <div class="filters" *ngIf="!loading">
     <app-dropdown [options]="projectDropdown" (itemSelected)="updateProjectId($event)"></app-dropdown>
     <app-dropdown [options]="gatewayDropdown" (itemSelected)="updateGatewayId($event)"></app-dropdown>
+    <app-datepicker (dateValueChange)="updateDateRange($event)"></app-datepicker>
     <app-button [btn]="generateReport" (btnClicked)="getReports()"></app-button>
   </div>
 </div>
 
-<section *ngIf="reports.length > 0; else emptyReports" class="reports">
-  <div class="reports-table">
-    <h3>{{selectedProjectName}} | {{selectedGatewayName}}</h3>
+<ng-container *ngIf="!loading">
+  <section *ngIf="reports.length > 0; else emptyReports" class="reports">
+    <div class="reports-table">
+      <h3>{{selectedProjectName}} | {{selectedGatewayName}}</h3>
 
-    <ng-container *ngFor="let item of reports; let i = index">
-      <app-accordion [testAttr]="item.reportName" [expanded]="i === 0">
-        <div class="accordion-header-content" *ngIf="!showAccordionHeader">
-          <p>{{item.reportName}}</p>
-          <p>Total: {{item.total | currency:'':'code'}}</p>
-        </div>
-        <div class="accordion-body-content">
-          <app-table [columns]="columns" [datasource]="item.data" [showGateway]="showGateway"></app-table>
-        </div>
-      </app-accordion>
-    </ng-container>
-  </div>
-  <div class="reports-chart" *ngIf="showChart">
-    <app-donut-chart [chartData]="chart" [title]="totalTitle" [amount]="totalAmount"></app-donut-chart>
-  </div>
-</section>
+      <ng-container *ngFor="let item of reports; let i = index">
+        <app-accordion [testAttr]="item.reportName" [expanded]="i === 0">
+          <div class="accordion-header-content" *ngIf="!showAccordionHeader">
+            <p>{{item.reportName}}</p>
+            <p>Total: {{item.total | currency:'':'code'}}</p>
+          </div>
+          <div class="accordion-body-content">
+            <app-table [columns]="columns" [datasource]="item.data" [showGateway]="showGateway"></app-table>
+          </div>
+        </app-accordion>
+      </ng-container>
+    </div>
+    <div class="reports-chart" *ngIf="showChart">
+      <app-donut-chart [chartData]="chart" [title]="totalTitle" [amount]="totalAmount"></app-donut-chart>
+    </div>
+  </section>
 
-<section class="total-amount" *ngIf="reports.length > 0 && !showChart">
-  <p>Total: {{totalAmount | currency:'':'code'}}</p>
-</section>
+  <section class="total-amount" *ngIf="reports.length > 0 && !showChart">
+    <p>Total: {{totalAmount | currency:'':'code'}}</p>
+  </section>
+</ng-container>
 
 <ng-template #emptyReports>
   <app-empty-layout [message]="emptyUI"></app-empty-layout>
