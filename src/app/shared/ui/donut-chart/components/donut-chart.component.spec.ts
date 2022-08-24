@@ -2,7 +2,7 @@ import { SimpleChange } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DonutChartComponent } from './donut-chart.component';
 
-fdescribe('DonutChartComponent', () => {
+describe('DonutChartComponent', () => {
   let component: DonutChartComponent;
   let fixture: ComponentFixture<DonutChartComponent>;
 
