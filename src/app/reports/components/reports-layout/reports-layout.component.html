@@ -1,4 +1,12 @@
-<h1>Reports</h1>
-<h2>Easily generate a report of your transactions</h2>
+<div class="page-title">
+  <h1>Reports</h1>
+  <h2>Easily generate a report of your transactions</h2>
+</div>
+
+<div class="filters">
+  <app-dropdown [options]="projectDropdown" (itemSelected)="updateProjectId($event)"></app-dropdown>
+  <app-dropdown [options]="gatewayDropdown" (itemSelected)="updateGatewayId($event)"></app-dropdown>
+  <app-button [btn]="generateReport" (btnClicked)="getReports()"></app-button>
+</div>
 
 <app-empty-layout [message]="emptyUI"></app-empty-layout>

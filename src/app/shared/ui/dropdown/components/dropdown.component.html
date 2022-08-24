@@ -1,0 +1,16 @@
+<div class="dropdown">
+  <mat-form-field class="dropdown" appearance="fill" [attr.data-testid]="options.testAttr" floatLabel="never">
+    <mat-select #mySelect panelClass="select-panel" multiple="false" [(value)]="options.selectedItemId" disableOptionCentering>
+      <mat-option
+        *ngFor="let item of options.items; let i = index"
+        (click)="handleSelected(item)"
+        (keyup.enter)="handleSelected(item)"
+        [value]="item['itemId']"
+        attr.data-testid="option-{{i}}"
+        #matOption
+      >
+        {{item['itemText']}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
