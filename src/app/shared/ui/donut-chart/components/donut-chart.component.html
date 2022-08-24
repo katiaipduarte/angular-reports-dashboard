@@ -1,7 +1,18 @@
-<div class="donut-chart-wrapper" data-test="donut-chart-wrapper">
-  <div class="donut-chart-body">
+<div class="donut-chart-wrapper" data-testid="donut-chart-wrapper">
+  <div class="donut-chart-body" *ngIf="!!chartData">
+    <div class="chart-title">
+      <ng-container *ngFor="let item of chartData.series; let i = index">
+        <p>
+          <span class="color-swatch" [style.background-color]="chartData.color[i]"></span>
+          <span class="chart-name">{{item.name}}</span>
+        </p>
+      </ng-container>
+    </div>
     <div class="donut-chart">
-      <div *ngIf="!!chartData" echarts [options]="chartOption" [autoResize]="true"></div>
+      <div echarts [options]="chartOption" [autoResize]="true"></div>
+    </div>
+    <div class="total-amount-graphic">
+      <p>{{title}} | {{amount | currency:'':'code'}}</p>
     </div>
   </div>
 </div>

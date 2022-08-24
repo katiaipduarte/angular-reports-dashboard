@@ -31,7 +31,6 @@
       "@empty-layout": ["app/shared/ui/empty-layout/index"],
       "@loader": ["app/shared/ui/loader/index"],
       "@message": ["app/shared/ui/message/index"],
-      "@pill-btn": ["app/shared/ui/pill/index"],
       "@table": ["app/shared/ui/table/index"]
     }
   },

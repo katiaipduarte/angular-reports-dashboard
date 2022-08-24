@@ -2,4 +2,47 @@
   height: 450px;
   background-color: white;
   width: 100%;
+
+  .chart-title {
+    height: 15px;
+    background: #f1fafe;
+    border-radius: 10px;
+    display: flex;
+    padding: 19px 23px;
+
+    p {
+      margin-right: 35px;
+
+      .color-swatch {
+        width: 15px;
+        height: 15px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-right: 12px;
+      }
+
+      .chart-name {
+        font-weight: 400;
+        display: inline-block;
+        vertical-align: top;
+        font-size: 14px;
+        line-height: 16px;
+        color: #011f4b;
+      }
+    }
+  }
+
+  .total-amount-graphic {
+    height: 53px;
+    background: #f1fafe;
+    border-radius: 10px;
+
+    p {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 19px;
+      color: #011f4b;
+      padding: 17px 20px;
+    }
+  }
 }

@@ -1,4 +1,25 @@
 .accordion {
   margin-bottom: 5px;
   display: block;
+
+  .accordion-header-content {
+    background: #ffffff;
+    border-radius: 10px;
+    height: 19px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 26px 21px;
+
+    p {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 19px;
+      color: #011f4b;
+    }
+  }
+
+  .accordion-body-content {
+    padding: 14px 0;
+  }
 }

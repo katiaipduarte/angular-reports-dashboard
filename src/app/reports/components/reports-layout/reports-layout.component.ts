@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Button } from '@button';
+import { DonutChartData } from '@donut-chart';
 import { DropdownItem, DropdownOptions } from '@dropdown';
 import { EmptyMessage } from '@empty-layout';
 import { GatewayItem, ProjectItem, ReportFilters, ReportGrouped, ReportItem } from 'app/reports/models';
@@ -50,6 +51,10 @@ export class ReportsLayoutComponent implements OnInit {
   public showGateway: boolean = false;
   public columns: string[] = [];
   public showAccordionHeader: boolean = true;
+
+  public chart!: DonutChartData;
+  public totalTitle: string = '';
+  public showChart: boolean = false;
 
   private projects: ProjectItem[] = [];
   private gateways: GatewayItem[] = [];
@@ -176,5 +181,21 @@ export class ReportsLayoutComponent implements OnInit {
         total: reports.reduce((a: number, b: ReportItem) => a + b.amount, 0),
       };
     });
+
+    this.prepareChartData();
+    this.totalTitle = 'Project total';
+    this.showChart = true;
+  }
+
+  private prepareChartData(): void {
+    this.chart = {
+      series: this.reports.map((i: ReportGrouped) => {
+        return {
+          value: i.data.length,
+          name: i.reportName,
+        };
+      }),
+      color: ['#A259FF', '#F24E1E', '#FFC107', '#6497B1'],
+    };
   }
 }

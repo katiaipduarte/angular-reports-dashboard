@@ -28,19 +28,11 @@
     </ng-container>
   </div>
   <div class="reports-chart" *ngIf="showChart">
-    <div class="chart-title">
-      <ng-container *ngFor="let item of chart.series; let i = index">
-        <p><span class="color-swatch" [style.background-color]="'red'"></span><span class="chart-name">{{item.name}}</span></p>
-      </ng-container>
-    </div>
-    <app-donut-chart [chartData]="chart"></app-donut-chart>
-    <div class="total-amount-graphic">
-      <p>{{totalTitle}} | {{totalAmount | currency:'':'code'}}</p>
-    </div>
+    <app-donut-chart [chartData]="chart" [title]="totalTitle" [amount]="totalAmount"></app-donut-chart>
   </div>
 </section>
 
-<section class="total-amount" *ngIf="reports.length > 0">
+<section class="total-amount" *ngIf="reports.length > 0 && !showChart">
   <p>Total: {{totalAmount | currency:'':'code'}}</p>
 </section>
 

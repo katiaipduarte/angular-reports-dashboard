@@ -11,7 +11,6 @@ import { DropdownComponent } from '@dropdown';
 import { EmptyLayoutComponent } from '@empty-layout';
 import { LoaderComponent } from '@loader';
 import { ToastComponent } from '@message';
-import { PillComponent } from '@pill-btn';
 import { InitialsPipe } from '@pipes';
 import { TableComponent } from '@table';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -23,7 +22,6 @@ const modules = [
   DropdownComponent,
   EmptyLayoutComponent,
   LoaderComponent,
-  PillComponent,
   TableComponent,
   ToastComponent,
   AccordionComponent,

@@ -11,6 +11,8 @@ import { DonutChartData } from '../models';
 })
 export class DonutChartComponent implements OnChanges {
   @Input() chartData: DonutChartData | undefined;
+  @Input() title: string = '';
+  @Input() amount: number = 0;
 
   public chartOption!: EChartsOption;
 
@@ -35,7 +37,7 @@ export class DonutChartComponent implements OnChanges {
       color: this.chartData?.color,
       series: [
         {
-          name: this.chartData?.key,
+          name: this.title,
           data: this.chartData?.series,
           type: 'pie',
           emphasis: {
