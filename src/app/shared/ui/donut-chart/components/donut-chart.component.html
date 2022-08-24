@@ -1,0 +1,7 @@
+<div class="donut-chart-wrapper" data-test="donut-chart-wrapper">
+  <div class="donut-chart-body">
+    <div class="donut-chart">
+      <div *ngIf="!!chartData" echarts [options]="chartOption" [autoResize]="true"></div>
+    </div>
+  </div>
+</div>

@@ -12,10 +12,10 @@ export class DropdownComponent {
     selectedItemId: '0',
     testAttr: '',
   };
-  @Output() itemSelected: EventEmitter<string> = new EventEmitter();
+  @Output() itemSelected: EventEmitter<DropdownItem> = new EventEmitter();
 
   public handleSelected(item: DropdownItem): void {
     this.options.selectedItemId = item.itemId;
-    this.itemSelected.emit(item.itemId);
+    this.itemSelected.emit(item);
   }
 }

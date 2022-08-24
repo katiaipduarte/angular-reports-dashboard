@@ -12,19 +12,32 @@
 </div>
 
 <section *ngIf="reports.length > 0; else emptyReports" class="reports">
-  <h3>{{selectedProjectName}} | {{selectedGatewayName}}</h3>
+  <div class="reports-table">
+    <h3>{{selectedProjectName}} | {{selectedGatewayName}}</h3>
 
-  <ng-container *ngFor="let item of reports; let i = index">
-    <app-accordion [testAttr]="item.reportName" [expanded]="i === 0">
-      <div class="accordion-header-content" *ngIf="!showAccordionHeader">
-        <p>{{item.reportName}}</p>
-        <p>Total: {{item.total | currency:'':'code'}}</p>
-      </div>
-      <div class="accordion-body-content">
-        <app-table [columns]="columns" [datasource]="item.data" [showGateway]="showGateway"></app-table>
-      </div>
-    </app-accordion>
-  </ng-container>
+    <ng-container *ngFor="let item of reports; let i = index">
+      <app-accordion [testAttr]="item.reportName" [expanded]="i === 0">
+        <div class="accordion-header-content" *ngIf="!showAccordionHeader">
+          <p>{{item.reportName}}</p>
+          <p>Total: {{item.total | currency:'':'code'}}</p>
+        </div>
+        <div class="accordion-body-content">
+          <app-table [columns]="columns" [datasource]="item.data" [showGateway]="showGateway"></app-table>
+        </div>
+      </app-accordion>
+    </ng-container>
+  </div>
+  <div class="reports-chart" *ngIf="showChart">
+    <div class="chart-title">
+      <ng-container *ngFor="let item of chart.series; let i = index">
+        <p><span class="color-swatch" [style.background-color]="'red'"></span><span class="chart-name">{{item.name}}</span></p>
+      </ng-container>
+    </div>
+    <app-donut-chart [chartData]="chart"></app-donut-chart>
+    <div class="total-amount-graphic">
+      <p>{{totalTitle}} | {{totalAmount | currency:'':'code'}}</p>
+    </div>
+  </div>
 </section>
 
 <section class="total-amount" *ngIf="reports.length > 0">
