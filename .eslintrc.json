@@ -14,7 +14,7 @@
         "plugin:prettier/recommended"
       ],
       "rules": {
-        "linebreak-style": ["error", "unix"],
+        "linebreak-style": ["error", "unix"], // changes the file to LF
         "prettier/prettier": "error",
         "newline-before-return": "error",
         "max-len": [
@@ -65,5 +65,6 @@
       "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {}
     }
-  ]
+  ],
+  "extends": ["plugin:storybook/recommended"]
 }
