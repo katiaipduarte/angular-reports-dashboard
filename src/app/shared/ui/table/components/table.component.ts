@@ -10,4 +10,5 @@ import { ReportItem } from 'app/reports/models';
 export class TableComponent {
   @Input() columns: string[] = [];
   @Input() datasource: ReportItem[] = [];
+  @Input() showGateway = false;
 }

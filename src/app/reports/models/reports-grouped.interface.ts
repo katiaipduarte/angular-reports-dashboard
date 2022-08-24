@@ -1,6 +1,6 @@
 import { ReportItem } from 'app/reports/models';
 export interface ReportGrouped {
-  projectName: string;
+  reportName: string;
   data: ReportItem[];
   total: number;
 }

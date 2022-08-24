@@ -67,26 +67,15 @@ export class ReportsLayoutComponent implements OnInit {
       .getReports(this.reportFilters)
       .pipe(
         tap((res: ReportItem[]) => {
-          this.prepareTable();
+          this.prepareTableHeader();
           this.showAccordionHeader = this.reportFilters.projectId !== '' && this.reportFilters.gatewayId !== '';
           this.totalAmount = res.reduce((a: number, b: ReportItem) => a + b.amount, 0);
-          let reduced: ReportItem[][] = res.reduce((r, acc) => {
-            r[acc.projectId] = r[acc.projectId] || [];
-            r[acc.projectId].push({
-              ...acc,
-              gatewayName: this.gateways.find((i) => i.gatewayId === acc.gatewayId)?.name,
-            });
 
-            return r;
-          }, Object.create(null));
-
-          this.reports = Object.values(reduced).map((reports: ReportItem[]) => {
-            return {
-              projectName: this.projects.find((i) => i.projectId === reports[0].projectId)?.name ?? '',
-              data: reports,
-              total: reports.reduce((a: number, b: ReportItem) => a + b.amount, 0),
-            };
-          });
+          if (this.reportFilters.projectId !== '' && this.reportFilters.gatewayId === '') {
+            this.prepareTableDataPerGateway(res);
+          } else {
+            this.prepareTableDataPerProject(res);
+          }
         }),
         catchError(() => {
           return of(EMPTY);
@@ -140,7 +129,7 @@ export class ReportsLayoutComponent implements OnInit {
     );
   }
 
-  private prepareTable(): void {
+  private prepareTableHeader(): void {
     if (this.reportFilters.projectId === '' && this.reportFilters.gatewayId === '') {
       this.columns = ['date', 'gatewayName', 'paymentId', 'amount'];
       this.showGateway = true;
@@ -148,5 +137,44 @@ export class ReportsLayoutComponent implements OnInit {
       this.columns = ['date', 'paymentId', 'amount'];
       this.showGateway = false;
     }
+  }
+
+  private prepareTableDataPerProject(result: ReportItem[]): void {
+    let reduced: ReportItem[][] = result.reduce((r, acc) => {
+      r[acc.projectId] = r[acc.projectId] || [];
+      r[acc.projectId].push({
+        ...acc,
+        gatewayName: this.gateways.find((i) => i.gatewayId === acc.gatewayId)?.name,
+      });
+
+      return r;
+    }, Object.create(null));
+
+    this.reports = Object.values(reduced).map((reports: ReportItem[]) => {
+      return {
+        reportName: this.projects.find((i) => i.projectId === reports[0].projectId)?.name ?? '',
+        data: reports,
+        total: reports.reduce((a: number, b: ReportItem) => a + b.amount, 0),
+      };
+    });
+  }
+
+  private prepareTableDataPerGateway(result: ReportItem[]): void {
+    let reduced: ReportItem[][] = result.reduce((r, acc) => {
+      r[acc.gatewayId] = r[acc.gatewayId] || [];
+      r[acc.gatewayId].push({
+        ...acc,
+      });
+
+      return r;
+    }, Object.create(null));
+
+    this.reports = Object.values(reduced).map((reports: ReportItem[]) => {
+      return {
+        reportName: this.gateways.find((i) => i.gatewayId === reports[0].gatewayId)?.name ?? '',
+        data: reports,
+        total: reports.reduce((a: number, b: ReportItem) => a + b.amount, 0),
+      };
+    });
   }
 }

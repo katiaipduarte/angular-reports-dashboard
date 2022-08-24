@@ -15,9 +15,9 @@
   <h3>{{selectedProjectName}} | {{selectedGatewayName}}</h3>
 
   <ng-container *ngFor="let item of reports; let i = index">
-    <app-accordion [testAttr]="item.projectName" [expanded]="i === 0">
+    <app-accordion [testAttr]="item.reportName" [expanded]="i === 0">
       <div class="accordion-header-content" *ngIf="!showAccordionHeader">
-        <p>{{item.projectName}}</p>
+        <p>{{item.reportName}}</p>
         <p>Total: {{item.total | currency:'':'code'}}</p>
       </div>
       <div class="accordion-body-content">
