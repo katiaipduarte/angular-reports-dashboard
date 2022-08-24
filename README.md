@@ -3,12 +3,14 @@
 - [General info](#general-info)
 - [Technologies](#technologies)
 - [Setup](#setup)
-- [Furet Work](#future-work)
+- [Future Work](#future-work)
 
 ## General info
 
 This project is simple example of dashboard report with dropdown filters and date range.
 Demo: https://angular-reports-dashboard.vercel.app/reports --> warning, since the API used in this case is not https, the only visible page is the no reports
+
+
 
 ## Technologies
 
@@ -36,9 +38,9 @@ $ npm run start
 
 ## Future Work
 
-[ ] Complete the unit tests cases
-[ ] Add mocked services for unit test
-[ ] Add e2e tests with Cypress
-[ ] Complete storybook with all cases from the shared UI components
-[ ] Make app completly responsive and accessible
-[ ] Add docker build
+[ ] Complete the unit tests cases<br>
+[ ] Add mocked services for unit test<br>
+[ ] Add e2e tests with Cypress<br>
+[ ] Complete storybook with all cases from the shared UI components<br>
+[ ] Make app completly responsive and accessible<br>
+[ ] Add docker build<br>
